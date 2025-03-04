@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test</title>
+        <style>
+            img {
+                user-select: none;
+                
+            }
+            html {
+                height: 100%;
+            }
+            body {
+                margin: 0;
+                font-family: sans-serif;
+            }
+
+            .container {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .innerContainer {
+                margin: 0;
+                height: 100%;
+            }
+
+            .pfpContainer {
+                margin-top: 25vh;
+                width: 350px;
+            }
+            #pfp {
+                width: 100%;
+            }
+            .info {
+                text-align: center;
+            }
+            .info > header {
+                font-weight: bold;
+                font-size: 25px;
+            }
+            .info > footer {
+                font-size: 25px;
+            }
+            .buttons-container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .buttons {
+                width: auto;
+                height: 30vh;
+                display: flex;
+            }
+
+            .buttons > div {
+                height: 100%;
+                flex-grow: 1;
+            }
+            .buttons img {
+                width: 150px;
+            }
+            .buttons img:hover {
+                transform: translateY(-5px);
+                cursor: pointer;
+            }
+
+            .secondaryButton {
+                margin: 0;
+                margin-top: 10px;
+            }
+
+            #footer {
+                position: fixed;
+                bottom: 0;
+                display: flex;
+                width: 99%;
+                height: 5%;
+            }
+
+            #footer p {
+                margin: 0;
+                text-align: right;
+            }
+
+            #developerCredit {
+                color: #000;
+                font-size: 19px;
+            }
+            #designerCredit {
+                color: rgb(113, 114, 113); 
+                font-size: 13px;
+            }
+
+            #dogspace {
+                bottom: 0;
+                flex-grow: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="innerContainer">
+                <div class="pfpContainer">
+                    <img src="pfp.png" id="pfp" draggable="false">
+                </div>
+                <div class="info">
+                    <header>@siIentbeast13</header>
+                    <footer>developer</footer>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <div class="buttons">
+                    <div>
+                        <a href="https://www.discordapp.com/users/728871508251902026">
+                            <div class="button">
+                                <img src="discordButton.png" class="secondaryButton" draggable="false">
+                            </div>
+                        </a>
+                    </div>
+                    <div>
+                        <div class="button">
+                            <img src="instaButton.png" class="primaryButton" draggable="false">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="button">
+                            <img src="githubButton.png" class="secondaryButton" draggable="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="dogspace">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div id="credit">
+                <p id="developerCredit">Developed by me</p>
+                <p id="designerCredit">Designed by Moonlight</p>
+            </div>
+        </div>
+
+
+        <script>
+            const onPhone = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i);
+            const canvas = document.getElementById("canvas");
+            canvas.style.height = "100%";
+            canvas.width = 150; 
+
+            const ctx = canvas.getContext("2d");
+            const dogImage = new Image();
+            dogImage.src = "Dog_medium.png";
+
+            let step = 0
+            let timeStep = 0
+            let currentAnim = 4
+            function stepDog(mirrored) {
+                if (currentAnim == 1) {
+                    if (mirrored) {
+                        ctx.translate(canvas.width, 0);
+                        ctx.scale(-1, 1);
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                        ctx.setTransform(1, 0, 0, 1, 0, 0);
+                    } else {
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                    }
+
+                    step += 0.1;
+                    if (step > 6) step = 0;
+                }
+                if (currentAnim == 4) {
+                    if (mirrored) {
+                        ctx.translate(canvas.width, 0);
+                        ctx.scale(-1, 1);
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                        ctx.setTransform(1, 0, 0, 1, 0, 0);
+                    } else {
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                    }
+
+                    step += 0.1;
+                    if (step > 4) step = 0;
+                }
+            }
+            
+            let waiting = true;
+            let movingRight = 1;
+            let marginPercentage = 0;
+            function update() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                stepDog(movingRight);
+
+                if (waiting) {
+                    if (timeStep > 30) {
+                        waiting = false;
+                        currentAnim = 1;
+                    }
+                }
+
+                if (currentAnim == 1) {
+                    if (movingRight)
+                        marginPercentage += 0.1;
+                    else 
+                        marginPercentage -= 0.1;
+
+                    canvas.style.marginLeft = `${marginPercentage}%`;
+
+                    if (marginPercentage > 95) {
+                        movingRight = 0;
+                        currentAnim = 4;
+                        timeStep = 0;
+                        waiting = true;
+                    }
+                    if (marginPercentage == 0) {
+                        movingRight = 1;
+                        currentAnim = 4;
+                        timeStep = 0;
+                        waiting = true;
+                    }
+                }
+
+                timeStep += 0.1
+                requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update)
+        </script>
+    </body>
+</html>
