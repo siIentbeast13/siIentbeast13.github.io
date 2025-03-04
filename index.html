@@ -63,8 +63,15 @@
                 height: 100%;
                 flex-grow: 1;
             }
-            .buttons img {
-                width: 150px;
+            @media (max-width: 768px) {
+                .buttons img {
+                    width: 125px;
+                }
+            }
+            @media (min-width: 768px) {
+                .buttons img {
+                    width: 150px;
+                }
             }
             .buttons img:hover {
                 transform: translateY(-5px);
