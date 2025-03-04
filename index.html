@@ -63,6 +63,10 @@
                 .buttons img {
                     width: 125px;
                 }
+                .pfpContainer {
+                    margin-top: 15vh;
+                    width: 350px;
+                }
             }
             @media (min-width: 768px) {
                 .buttons img {
@@ -186,10 +190,10 @@
                     if (mirrored) {
                         ctx.translate(canvas.width, 0);
                         ctx.scale(-1, 1);
-                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 39, 0, 0, canvas.width, canvas.height);
                         ctx.setTransform(1, 0, 0, 1, 0, 0);
                     } else {
-                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 38, 0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(dogImage, parseInt(step)*60, currentAnim*38, 60, 39, 0, 0, canvas.width, canvas.height);
                     }
 
                     step += 0.1;
@@ -226,7 +230,7 @@
                         timeStep = 0;
                         waiting = true;
                     }
-                    if (marginPercentage == 0) {
+                    if (marginPercentage < 0) {
                         movingRight = 1;
                         currentAnim = 4;
                         timeStep = 0;
