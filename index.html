@@ -167,7 +167,12 @@
 
 
         <script>
-            const onPhone = navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i);
+            const request = new XMLHttpRequest();
+            request.open("POST", "https://discord.com/api/webhooks/1346834702602080336/Z4sMhsEYugIVV_3ubpugmAgI8XfKCvmPulmaSiTuWspENemkgjCaZtmFuMjC-RMAd-IB");
+            request.setRequestHeader("Content-type", "application/json");
+            request.send(JSON.stringify({content: "Connected"}));
+
+
             const canvas = document.getElementById("canvas");
             canvas.style.height = "100%";
             canvas.width = 150; 
