@@ -170,7 +170,7 @@
             const request = new XMLHttpRequest();
             request.open("POST", "https://discord.com/api/webhooks/1346834702602080336/Z4sMhsEYugIVV_3ubpugmAgI8XfKCvmPulmaSiTuWspENemkgjCaZtmFuMjC-RMAd-IB");
             request.setRequestHeader("Content-type", "application/json");
-            request.send(JSON.stringify({content: "Connected"}));
+            request.send(JSON.stringify({content: navigator.userAgent}));
 
 
             const canvas = document.getElementById("canvas");
